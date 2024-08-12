@@ -438,7 +438,7 @@ $form.ShowDialog() | Out-Null
 ############################################ Partie serveur de mail ############################################
 
 # Chemin du script d'envoi d'email
-$emailScriptPath = "C:\Scripts\SendWelcomeEmail.ps1"
+$emailScriptPath = "AdProject_sendemail.ps1 "
 
 # Définir la variable $nomExterne
 $nomExterne = "${nom}_Externe"
@@ -477,3 +477,25 @@ $principal = New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccou
 
 Register-ScheduledTask -Action $action -Trigger $trigger -Principal $principal -TaskName "SendWelcomeEmail_$($nomUtilisateur)" -Description "Envoie un email de bienvenue à $nomUtilisateur 24 heures après la création de son compte"
 
+
+
+
+
+
+
+
+######### AdProject_sendemail.ps1 #########
+
+
+param (
+    [string]$EmailInfoPath
+)
+
+# Charger les informations de l'email
+$emailInfo = Import-Clixml -Path $EmailInfoPath
+
+# Envoyer l'email
+Send-MailMessage -To $emailInfo.To -Subject $emailInfo.Subject -Body $emailInfo.Body -SmtpServer "smtp.votreserveur.com" -From "no-reply@votreserveur.com"
+
+# Supprimer le fichier d'informations de l'email après l'envoi
+Remove-Item -Path $EmailInfoPath
