@@ -123,7 +123,7 @@ function ShowExpirationForm {
 }
 
 $form = New-Object System.Windows.Forms.Form
-$form.Text = "Formulaire d'ajout d'utilisateur CSTB"
+$form.Text = "Formulaire d'ajout d'utilisateur "
 $form.Size = New-Object System.Drawing.Size(400, 700)
 $form.StartPosition = "CenterScreen"
 
@@ -328,12 +328,12 @@ $buttonValider.Add_Click({
     $typeContrat = $dropdownTypeContrat.SelectedItem
 
     $nomUtilisateur = "$prenom.$nom"
-    $userPrincipalName = "$prenom.$nom@cstb.fr"
+    $userPrincipalName = "$prenom.$nom@exemple.com"
     $displayName = "$prenom $nom"
 
     if ($typeContrat -eq "Externe") {
         $nomExterne = "${nom}_Externe"
-        $userPrincipalName = "$prenom.$nomExterne@cstb.fr"
+        $userPrincipalName = "$prenom.$nomExterne@exemple.com"
     }
 
     if (-not (ValidateUserUniqueness -userPrincipalName $userPrincipalName)) {
@@ -445,15 +445,15 @@ $nomExterne = "${nom}_Externe"
 
 # Informations pour l'email
 if ($typeContrat -eq "Externe") {
-    $emailTo = "$prenom.$nomExterne@cstb.fr"
+    $emailTo = "$prenom.$nomExterne@exemple.com"
 } else {
-    $emailTo = "$prenom.$nom@cstb.fr"
+    $emailTo = "$prenom.$nom@exemple.com"
 }
 $emailSubject = "Bienvenue dans l'entreprise"
 $emailBody = @"
 Bonjour $prenom,
 
-Bienvenue dans l'entreprise CSTB. 
+Bienvenue dans l'entreprise ^^. 
 Votre compte a été créé avec succès.
 
 
